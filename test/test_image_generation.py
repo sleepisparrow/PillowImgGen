@@ -1,6 +1,6 @@
 from unittest import *
-from PIL import *
 
+from dev.Color import Color
 from dev.main import *
 
 
@@ -48,35 +48,3 @@ class TestImageGeneration(TestCase):
             for j in range(height):
                 value = px[i, j][3]  # 4번째 값이 투명도이기 때문
                 self.assertEquals(0, value)
-
-    def test_empty_view_generate_image(self):
-        """
-        뷰를 생성하였을 때, 그 크기에 맞는 이미지가 나오는가?
-        :return:
-        """
-        width = 400
-        height = 300
-        view = View(width=width, height=height)
-        img = view.generate()
-        x, y = img.size
-        self.assertEquals(width, x)
-        self.assertEquals(height, y)
-
-    def test_empty_view_generate_empty_image(self):
-        """
-        뷰에 배경색을 부여하지 않았을 때, 투명한 이미지가 나오는가?
-        :return:
-        """
-        width = 400
-        height = 300
-        # setting
-        view = View(width=width, height=height)
-        img = view.generate()
-        px = img.load()  # for check each pixels
-        for i in range(width):
-            for j in range(height):
-                self.assertEqual(px[i, j][3], 0)  # foruth one is transparency
-
-    # TODO: 컬러가 있는 경우, 모든 픽셀이 그 컬러로 색칠되어 나옴?
-    # TODO: 자식이 있는 경우, 자식 역시 왼쪽 위 가장자리를 기준으로, witdth, height만큼 잘 구현됨?
-    # TODO: 부모 view를 자식 view가 넘어서지 않음?
