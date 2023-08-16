@@ -40,8 +40,9 @@ class TestView(TestCase):
         뷰에 배경색을 부여하였을 경우, 그 색에 맞는 이미지가 나오는가?
         :return:
         """
-        view = View(width=400, height=300)
+        view = View(width=400, height=300, background=Color(0xff, 0, 0))
         img = view.generate()
+        self.assertTrue(self.is_section_colored(0, 0, 400, 300, img, Color(0xff, 0, 0)))
 
     def test_is_section_colored(self):
         """
@@ -67,7 +68,10 @@ class TestView(TestCase):
         :return: 모두 같은 색인지에 대한 여부
         """
         px = img.load()
-        target_color = color.get_RGB_by_tuple()
+        if len(px[0, 0]) == 4:
+            target_color = color.get_RGBA_by_tuple()
+        else:
+            target_color = color.get_RGB_by_tuple()
         for i in range(fx, tx):
             for j in range(fy, ty):
                 if px[i, j] != target_color:
