@@ -21,3 +21,11 @@ class Color:
 
     def get_RGB_by_tuple(self) -> tuple[int, int, int]:
         return self.__R, self.__G, self.__B
+
+
+class Colors:
+    white = Color(0xff, 0xff, 0xff)
+    red = Color(0xff, 0, 0)
+    green = Color(0, 0xff, 0)
+    blue = Color(0, 0, 0xff)
+    black = Color(0, 0,0)
