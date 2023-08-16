@@ -18,3 +18,6 @@ class Color:
 
     def get_RGBA_by_tuple(self) -> tuple[int, int, int, int]:
         return self.__R, self.__G, self.__B, self.__A
+
+    def get_RGB_by_tuple(self) -> tuple[int, int, int]:
+        return self.__R, self.__G, self.__B
