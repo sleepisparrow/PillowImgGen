@@ -2,7 +2,7 @@ from unittest import *
 
 from PIL import Image
 
-from dev.Color import Color
+from dev.Color import Color, Colors
 from dev.view import View
 
 
@@ -78,3 +78,25 @@ class TestView(TestCase):
                     return False
 
         return True
+
+    def test_if_child_exists_then_generate_make_child_in_left_top(self):
+        parent_color = Colors.white
+        child_color = Colors.red
+        view = View(width=400,
+                    height=300,
+                    background=parent_color,
+                    child=View(
+                        width=100,
+                        height=50,
+                        background=child_color,
+                    ),
+                )
+        img = view.generate()
+        is_child_colored = self.is_section_colored(0, 0, 100, 50, img, child_color)
+        is_parent_colored_A = self.is_section_colored(100, 0, 400, 300, img, parent_color)
+        is_parent_colored_B = self.is_section_colored(0, 50, 400, 300, img, parent_color)
+
+        self.assertTrue(is_child_colored)
+        self.assertTrue(is_parent_colored_A)
+        self.assertTrue(is_parent_colored_B)
+
