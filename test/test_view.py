@@ -80,6 +80,10 @@ class TestView(TestCase):
         return True
 
     def test_if_child_exists_then_generate_make_child_in_left_top(self):
+        """
+        자식이 있고, 위치에 대한 내용이 없는 경우, 왼쪽 위에 생성이 되는가?
+        :return:
+        """
         parent_color = Colors.white
         child_color = Colors.red
         view = View(width=400,
