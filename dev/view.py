@@ -16,14 +16,19 @@ class View:
         :type child: View
         :param child: child of this view. it must not overflow parent's section
         """
-        if not isinstance(child, View):
+        if not isinstance(child, View) and child is not None:
             raise TypeError(f"child must be subclass of View but you give {type(child)}")
 
         self.__child = child
         self.__background = background
-        self.width = width
-        self.height = height
+        self.__width = width
+        self.__height = height
 
     def generate(self):
         # TODO: 여기에 자식이 잘 형성되도록 만들기
-        return Image.new(mode="RGBA", size=(self.width, self.height), color=self.background.get_RGBA_by_tuple())
+        parent = Image.new(mode="RGBA", size=(self.__width, self.__height), color=self.__background.get_RGBA_by_tuple())
+        if self.__child is not None:
+            child = self.__child.generate()
+            parent.paste(child, (0, 0))
+
+        return parent

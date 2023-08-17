@@ -99,4 +99,4 @@ class TestView(TestCase):
         self.assertTrue(is_child_colored)
         self.assertTrue(is_parent_colored_A)
         self.assertTrue(is_parent_colored_B)
-
+        img.show()
