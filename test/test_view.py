@@ -1,3 +1,4 @@
+import warnings
 from unittest import *
 
 from PIL import Image
@@ -94,7 +95,8 @@ class TestView(TestCase):
                         height=50,
                         background=child_color,
                     ),
-                )
+                    )
+
         img = view.generate()
         is_child_colored = self.is_section_colored(0, 0, 100, 50, img, child_color)
         is_parent_colored_A = self.is_section_colored(100, 0, 400, 300, img, parent_color)
@@ -104,3 +106,38 @@ class TestView(TestCase):
         self.assertTrue(is_parent_colored_A)
         self.assertTrue(is_parent_colored_B)
         img.show()
+
+    def test_child_view_must_not_overflow_parent_view(self):
+        """
+        자식이 부모를 넘어서지 않는지 검사하기 + 부모보다 큰 자식이 있는 경우, 경고를 출력하는지를 조사하기
+        :return:
+        """
+        biggest_color = Colors.white
+        bigger_color = Colors.red
+        smallest_color = Colors.blue
+        with warnings.catch_warnings(record=True):
+            view = View(width=400,
+                        height=300,
+                        background=biggest_color,
+                        child=View(
+                            width=200,
+                            height=100,
+                            background=bigger_color,
+                            child=View(
+                                width=300,
+                                height=200,
+                                background=smallest_color
+                            ),
+                        ),
+                        )
+
+        # 넘어서지 않는지 검증하는 부분
+        img = view.generate()
+        is_parent_filled = self.is_section_colored(0, 0, 200, 100, img, smallest_color)  # 부모를 다 채우긴 함?
+        # 자식이 부모를 넘어서지 않음?
+        is_child_doesnt_overflowed_1 = self.is_section_colored(200, 0, 400, 300, img, biggest_color)
+        is_child_doesnt_overflowed_2 = self.is_section_colored(0, 100, 400, 300, img, biggest_color)
+
+        self.assertTrue(is_parent_filled)
+        self.assertTrue(is_child_doesnt_overflowed_1)
+        self.assertTrue(is_child_doesnt_overflowed_2)

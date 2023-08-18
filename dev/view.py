@@ -1,3 +1,6 @@
+import logging
+import warnings
+
 from PIL import Image
 
 from dev.Color import Color
@@ -25,10 +28,14 @@ class View:
         self.__height = height
 
     def generate(self):
-        # TODO: 여기에 자식이 잘 형성되도록 만들기
         parent = Image.new(mode="RGBA", size=(self.__width, self.__height), color=self.__background.get_RGBA_by_tuple())
         if self.__child is not None:
             child = self.__child.generate()
+            p_size = parent.size
+            c_size = child.size
+
+            if p_size[0] < c_size[0] or p_size[1] < c_size[1]:
+                warnings.warn("Child's size is bigger than parent", Warning)
             parent.paste(child, (0, 0))
 
         return parent
