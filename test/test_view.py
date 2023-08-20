@@ -4,7 +4,7 @@ from unittest import *
 from PIL import Image
 
 from dev.Color import Color, Colors
-from dev.view import View
+from dev.view import View, Alignment
 
 
 class TestView(TestCase):
@@ -105,7 +105,6 @@ class TestView(TestCase):
         self.assertTrue(is_child_colored)
         self.assertTrue(is_parent_colored_A)
         self.assertTrue(is_parent_colored_B)
-        img.show()
 
     def test_child_view_must_not_overflow_parent_view(self):
         """
@@ -141,3 +140,31 @@ class TestView(TestCase):
         self.assertTrue(is_parent_filled)
         self.assertTrue(is_child_doesnt_overflowed_1)
         self.assertTrue(is_child_doesnt_overflowed_2)
+
+    def test_child_aligned_horizontal_center(self):
+        """
+        뷰에 정렬(alignment=Alignment.top_center)을 넣어줄 경우, 제일 위쪽 센터에 잘 정렬되는가?
+        :return:
+        """
+        view = View(
+            width=300,
+            height=300,
+            background=Colors.white,
+            child=View(
+                width=100,
+                height=100,
+                background=Colors.red,
+            ),
+            alignment=Alignment.top_center
+        )
+        img = view.generate()
+
+        top_side = self.is_section_colored(100, 0, 200, 100, img, Colors.red)
+        left_side = self.is_section_colored(0, 0, 100, 300, img, Colors.white)
+        right_side = self.is_section_colored(200, 0, 300, 300, img, Colors.white)
+        mid_side = self.is_section_colored(100, 100, 200, 300, img, Colors.white)
+
+        self.assertTrue(top_side)
+        self.assertTrue(left_side)
+        self.assertTrue(right_side)
+        self.assertTrue(mid_side)

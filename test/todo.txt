@@ -3,8 +3,8 @@ DONE
 # TODO: 자식이 있는 경우, 자식 역시 왼쪽 위 가장자리를 기준으로, witdth, height만큼 잘 구현됨?
 # TODO: 자식 뷰가 부몰르 넘어설 경우, 경고가 나오는가?
 # TODO: 부모 view를 자식 view가 넘어서지 않음?
-ONGOING
 # 1) 가로 중앙
+ONGOING
 # 2) 가로 오른쪽
 # 3) 세로 중앙
 # 4) 세로 오른쪽
@@ -20,6 +20,6 @@ UNDONE
     8. 가운데 아래
     9. 오른쪽 아래
     # TODO: 중앙 위치 구하는 함수 만들기?
-
+# alignment 값이 잘못된 값이 아닌지에 대한 예외 처리
 # TODO: View 리펙토링
 # TODO: padding
