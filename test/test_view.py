@@ -168,3 +168,28 @@ class TestView(TestCase):
         self.assertTrue(left_side)
         self.assertTrue(right_side)
         self.assertTrue(mid_side)
+
+    def test_top_right_alignment(self):
+        """
+        오른쪽 위 정렬이 잘 되는지 확인하는 테스트
+        :return:
+        """
+        view = View(
+            width=300,
+            height=300,
+            background=Colors.white,
+            child=View(
+                width=100,
+                height=100,
+                background=Colors.red,
+            ),
+            alignment=Alignment.top_right
+        )
+        img = view.generate()
+        right_center = self.is_section_colored(0, 0, 200, 300, img, Colors.white)
+        left_bottom = self.is_section_colored(200, 100, 300, 300, img, Colors.white)
+        target = self.is_section_colored(200, 0, 300, 100, img, Colors.red)
+
+        self.assertTrue(right_center)
+        self.assertTrue(left_bottom)
+        self.assertTrue(target)

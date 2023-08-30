@@ -63,7 +63,7 @@ class View:
         elif alignment_value % 3 == 1:
             box[0] = (self.__width - self.__child.get_width()) // 2
         else:
-            pass  # TODO
+            box[0] = self.__width - self.__child.get_width()
 
         if alignment_value // 3 == 0:
             box[1] = 0
