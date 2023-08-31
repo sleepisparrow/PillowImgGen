@@ -247,3 +247,15 @@ class TestView(TestCase):
         self.assertTrue(top)
         self.assertTrue(target)
         self.assertTrue(bottom)
+
+    def test_view_wrong_value_alignment(self):
+        """
+        alignmnet 에 alignment 이외의 enum을 입력하는 경우, 에러가 나도록 하는 코드 작성
+        :return:
+        """
+        with self.assertRaises(TypeError):
+            View(
+                width=10,
+                height=10,
+                alignment=3
+            )

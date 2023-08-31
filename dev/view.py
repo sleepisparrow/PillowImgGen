@@ -25,6 +25,8 @@ class View:
 
         if alignment is None:
             alignment = Alignment.top_left
+        if not isinstance(alignment, Alignment):
+            raise TypeError(f"alignment must be enum of Alignment but you give {type(alignment)}")
 
         self.__child = child
         self.__background = background

@@ -8,6 +8,7 @@ class TestImageGeneration(TestCase):
     def test_right_size_generate(self):
         """
         올바른 사이즈의 사진을 생성하는가?
+        올바른 사이즈의 사진을 생성하는가?
         :return:
         """
         width = 400
