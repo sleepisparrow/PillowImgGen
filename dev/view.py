@@ -68,9 +68,9 @@ class View:
         if alignment_value // 3 == 0:
             box[1] = 0
         elif alignment_value // 3 == 1:
-            pass  # TODO
+            box[1] = (self.__height - self.__child.get_height()) // 2
         else:
-            pass  # TODO
+            box[1] = self.__height - self.__child.get_height()
         return tuple(box)
 
     def _warn_if_child_is_bigger_than_parent(self):

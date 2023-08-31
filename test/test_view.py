@@ -193,3 +193,57 @@ class TestView(TestCase):
         self.assertTrue(right_center)
         self.assertTrue(left_bottom)
         self.assertTrue(target)
+
+    def test_align_center_left(self):
+        """
+        왼쪽 중앙에 배치가 잘 되었는지 확인하는 테스트
+        :return:
+        """
+        view = View(
+            width=300,
+            height=300,
+            background=Colors.white,
+            child=View(
+                width=100,
+                height=100,
+                background=Colors.red,
+            ),
+            alignment=Alignment.center_left
+        )
+        img = view.generate()
+        top = self.is_section_colored(0, 0, 300, 100, img, Colors.white)
+        target = self.is_section_colored(0, 100, 100, 200, img, Colors.red)
+        middle = self.is_section_colored(100, 100, 300, 200, img, Colors.white)
+        bottom = self.is_section_colored(0,200, 300, 300, img, Colors.white)
+
+        self.assertTrue(top)
+        self.assertTrue(target)
+        self.assertTrue(middle)
+        self.assertTrue(bottom)
+
+    def test_align_bottom_left(self):
+        """
+            왼쪽 중앙에 배치가 잘 되었는지 확인하는 테스트
+            :return:
+        """
+        view = View(
+            width=300,
+            height=300,
+            background=Colors.white,
+            child=View(
+                width=100,
+                height=100,
+                background=Colors.red,
+            ),
+            alignment=Alignment.bottom_left
+        )
+
+        img = view.generate()
+
+        top = self.is_section_colored(0,0,300,200,img,Colors.white)
+        target = self.is_section_colored(0, 200, 100, 300, img, Colors.red)
+        bottom = self.is_section_colored(100, 200, 300, 300, img, Colors.white)
+
+        self.assertTrue(top)
+        self.assertTrue(target)
+        self.assertTrue(bottom)
