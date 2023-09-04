@@ -22,14 +22,13 @@ alignment 값이 잘못된 값이 아닌지에 대한 예외 처리
 is_only_box_colored 구현
 padding
     1. 패딩 객체 만들기 (패딩 값에 대한 내용을 담고 있는 코드)
+    우선 정렬된 만큼 이동한 후, padding이 적용이 되는가?
+    padding으로 작아진 틀보다 자식이 큰 경우, 자식이 잘리는가?
+    자식은 패딩으로 이동한 걸 제외하면 요구사항에 맞게 잘 정렬되어 있는가?
 
 ONGOING
 
-# TODO: padding
-    우선 정렬된 만큼 이동한 후, padding이 적용이 되는가?
-    padding으로 작아진 틀보다 자식이 큰 경우, 자식이 잘리는가?
     위의 경우, 경고가 뜨는가?
-    자식은 패딩으로 이동한 걸 제외하면 요구사항에 맞게 잘 정렬되어 있는가?9
 
 UNDONE
 # TODO: View를 추상 클래스로 분리하기 (imageView에 background를 넣고, imageView에서만 쓰는 것을 옮겨버리면 되지 않을까?)

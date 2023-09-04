@@ -377,3 +377,21 @@ class TestView(TestCase):
         )
         img = view.generate()
         
+    def test_child_is_bigger_than_padding(self):
+        """
+        만약 자식이 padding을 준 값보다 큰 경우, 잘리는가?
+        """
+        view = View(
+            width=100,
+            height=100, 
+            background=Colors.white,
+            child=View(
+                width=90,
+                height=90,
+                background=Colors.red,
+                padding=Padding.all(10)
+            )
+        )
+        img = view.generate()
+        
+        self.assertTrue(self.is_only_box_colored(10, 10, 90, 90, img, Colors.white, Colors.red))
