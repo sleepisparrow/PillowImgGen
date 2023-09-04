@@ -394,4 +394,5 @@ class TestView(TestCase):
                 )
             )
         
+        img = view.generate()
         self.assertTrue(self.is_only_box_colored(10, 10, 90, 90, img, Colors.white, Colors.red))
