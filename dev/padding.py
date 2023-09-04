@@ -4,6 +4,18 @@ class Padding:
         self.bottom = bottom
         self.left = left
         self.right = right
+        
+    def get_horizontal_padding(self) -> int:
+        """
+        returns sum of right and left padding
+        """
+        return self.left + self.right
+    
+    def get_vertical_padding(self) -> int:
+        """
+        returns sum of top and bottom padding
+        """
+        return self.top + self.bottom
 
     @staticmethod
     def fromLTRB(left: int, top: int, right: int, bottom: int):
