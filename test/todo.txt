@@ -26,18 +26,24 @@ padding
     padding으로 작아진 틀보다 자식이 큰 경우, 자식이 잘리는가?
     위의 경우, 경고가 뜨는가?
     자식은 패딩으로 이동한 걸 제외하면 요구사항에 맞게 잘 정렬되어 있는가?
+?? 왜 바이너리로 바꾼 다음에서야 묶는 거지?
+
+ImageView
+    1. 길이, 높이와 같은 정보 없이 이미지 경로만 주어진 경우, width, height가 이미지의 크기에 맞춰지는가?
+    2. 길이, 높이 정보 없이 url만 제공되는 경우, 잘 불러와지는가?
 
 ONGOING
 
+imageView 만들기
+    3. fill 옵션을 넣었을 경우, width, height에 맞게 resize 되는가?
+    4. crop 옵션을 넣었을 경우, 자식이 부모보다 큰 경우, 잘리는가?
+    5. crop 옵션과 img_alignment를 넣을 경우, 거기에 맞게 정렬된 상태에서 잘리는가?
+    6. width, height 둘 중 하나만 존재시 error 가 나는가?
 
 UNDONE
 # TODO: View를 추상 클래스로 분리하기 (imageView에 background를 넣고, imageView에서만 쓰는 것을 옮겨버리면 되지 않을까?)
 # TODO: View에 border 특성 부여하기
-# TODO: alignment가 부여된 상태에서, 자식이 부모보다 큰 경우, 어떻게 작동하는가? 에러가 나는가?
-    -> pillow 에서 이미지 삽입시 좌표가 음수인 경우, 어떻게 되는가?
-    -> alignment가 부여된 상태에서 넘친 다르다면, 자식은 여전히 왼쪽 위를 기준으로 되어야 하는가? 아니면 alignment와 같은 걸 기준으로 삼아야 하는가?
 # TODO: View 리펙토링
 # TODO textView 만들기
-# TODO imageView 만들기
 # TODO: row 만들기
 # TODO column 만들기

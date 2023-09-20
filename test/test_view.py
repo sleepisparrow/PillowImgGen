@@ -97,6 +97,7 @@ class TestView(TestCase):
 
         return True
 
+    @classmethod
     def is_only_box_colored(self, sx: int, sy: int, ex: int, ey: int, img: Image, background: Color, target_color: Color) -> bool:
         """
         완전 탐색으로, s부터 e까지만 color 색이고 나머지는 전부 background 색인지 확인하는 코드
@@ -106,7 +107,7 @@ class TestView(TestCase):
         :param ey: e의 y 좌표
         :param img: 사진
         :param background: 배경색
-        :param color: 타겟의 색깔
+        :param target_color: 타겟의 색깔
         :return: 맞는지 여부
         """
         ix, iy = img.size
@@ -356,10 +357,10 @@ class TestView(TestCase):
             )
         )
         img = view.generate()
-        
+
         self.assertTrue(self.is_only_box_colored(
             10, 10, 90, 90, img, Colors.white, Colors.red))
-        
+
     def test_padding_with_alignment(self):
         """
         정렬이 있는 경우, 정렬과 padding 모두 잘 될 것인가?
@@ -376,7 +377,7 @@ class TestView(TestCase):
             )
         )
         img = view.generate()
-        
+
     def test_child_is_bigger_than_padding(self):
         """
         만약 자식이 padding을 준 값보다 큰 경우, 잘리는가?
@@ -384,7 +385,7 @@ class TestView(TestCase):
         with warnings.catch_warnings(record=True):
             view = View(
                 width=100,
-                height=100, 
+                height=100,
                 background=Colors.white,
                 child=View(
                     width=90,
@@ -393,6 +394,7 @@ class TestView(TestCase):
                     padding=Padding.all(10)
                 )
             )
-        
+
         img = view.generate()
-        self.assertTrue(self.is_only_box_colored(10, 10, 90, 90, img, Colors.white, Colors.red))
+        self.assertTrue(self.is_only_box_colored(
+            10, 10, 90, 90, img, Colors.white, Colors.red))

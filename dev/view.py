@@ -40,38 +40,38 @@ class View:
             raise TypeError(
                 f"padding must be instance of Padding. but you gave {type(padding)}")
 
-        self.__child = child
-        self.__background = background
-        self.__width = width
-        self.__height = height
-        self.__alignment = alignment
-        self.__padding = padding
+        self._child = child
+        self._background = background
+        self._width = width
+        self._height = height
+        self._alignment = alignment
+        self._padding = padding
         
         if child is not None:
             child_padding = child.get_padding()
-            self.__padding_view_width = width - child_padding.get_horizontal_padding()
-            self.__padding_view_height = width - child_padding.get_vertical_padding()
+            self._padding_view_width = width - child_padding.get_horizontal_padding()
+            self._padding_view_height = width - child_padding.get_vertical_padding()
 
     def get_padding(self):
-        return self.__padding
+        return self._padding
 
     def get_width(self):
-        return self.__width
+        return self._width
 
     def get_height(self):
-        return self.__height
+        return self._height
 
     def _get_h_center(self) -> int:
         """
         :return: x value of horizontal center
         """
-        return (self.__width - self.__child.get_width()) // 2
+        return (self._width - self._child.get_width()) // 2
 
     def _get_v_center(self):
         """
         :return: y value of vertical center
         """
-        return (self.__height - self.__child.get_height()) // 2
+        return (self._height - self._child.get_height()) // 2
 
     def _get_alignment(self) -> tuple:
         """
@@ -79,24 +79,24 @@ class View:
         :return: position of child.
         """
         box = [0, 0,]
-        child_width = self.__child.get_width()
-        child_height = self.__child.get_height()
+        child_width = self._child.get_width()
+        child_height = self._child.get_height()
         # box 구하기
-        alignment_value = self.__alignment.value
+        alignment_value = self._alignment.value
         if alignment_value % 3 == 0:
             box[0] = 0
         elif alignment_value % 3 == 1:
-            box[0] = (self.__padding_view_width - child_width) // 2
+            box[0] = (self._padding_view_width - child_width) // 2
         else:
-            box[0] = self.__padding_view_width - child_width
+            box[0] = self._padding_view_width - child_width
         # box[2] = box[0] + child_width
 
         if alignment_value // 3 == 0:
             box[1] = 0
         elif alignment_value // 3 == 1:
-            box[1] = (self.__padding_view_height - child_height) // 2
+            box[1] = (self._padding_view_height - child_height) // 2
         else:
-            box[1] = self.__padding_view_height - child_height
+            box[1] = self._padding_view_height - child_height
         # box[3] = box[1] + child_height
 
         return tuple(box)
@@ -106,11 +106,11 @@ class View:
         print warning if child is bigger than padding.
         :return: nothing
         """
-        p_height = self.__padding_view_height
-        p_width = self.__padding_view_width
+        p_height = self._padding_view_height
+        p_width = self._padding_view_width
 
-        c_height = self.__child.get_height()
-        c_width = self.__child.get_width()
+        c_height = self._child.get_height()
+        c_width = self._child.get_width()
 
         if p_height < c_height or p_width < c_width:
             warnings.warn("Child's size is bigger than parent", Warning)
@@ -121,12 +121,11 @@ class View:
         :return: an Image.
         """
         parent = Image.new(mode="RGBA", size=(
-            self.__width, self.__height), color=self.__background.get_RGBA_by_tuple())
-        if self.__child is not None:
-            child_img = self.__child.generate()
-            child_padding = self.__child.get_padding()
-            virtual_view_for_padding = Image.new("RGBA", (self.__padding_view_width, self.__padding_view_height), color=(0, 0, 0, 0))
-            # TODO: 아래 메서드 두개 고치기
+            self._width, self._height), color=self._background.get_RGBA_by_tuple())
+        if self._child is not None:
+            child_img = self._child.generate()
+            child_padding = self._child.get_padding()
+            virtual_view_for_padding = Image.new("RGBA", (self._padding_view_width, self._padding_view_height), color=(0, 0, 0, 0))
             self._warn_if_child_is_bigger_than_padding_view()
             virtual_view_for_padding.paste(child_img, self._get_alignment(), child_img)
             
