@@ -319,6 +319,7 @@ class TestView(TestCase):
         )
 
         img = view.generate()
+        img.show()
 
         top = self.is_section_colored(0, 0, 300, 200, img, Colors.white)
         target = self.is_section_colored(0, 200, 100, 300, img, Colors.red)

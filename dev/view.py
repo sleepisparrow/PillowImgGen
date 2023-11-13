@@ -9,13 +9,13 @@ from dev.padding import Padding
 
 class View:
     def __init__(
-        self,
-        width: int,
-        height: int,
-        background: Color = Color(0, 0, 0, 0),
-        child=None,
-        alignment=Alignment.top_left,
-        padding=Padding.all(0)
+            self,
+            width: int,
+            height: int,
+            background: Color = Color(0, 0, 0, 0),
+            child=None,
+            alignment=Alignment.top_left,
+            padding=Padding.all(0)
     ):
         """
         :param width: width of this view
@@ -36,7 +36,7 @@ class View:
             raise TypeError(
                 f"alignment must be enum of Alignment but you gave {type(alignment)}")
 
-        if type(padding) != Padding:
+        if not isinstance(padding, Padding):
             raise TypeError(
                 f"padding must be instance of Padding. but you gave {type(padding)}")
 
@@ -46,7 +46,7 @@ class View:
         self._height = height
         self._alignment = alignment
         self._padding = padding
-        
+
         if child is not None:
             child_padding = child.get_padding()
             self._padding_view_width = width - child_padding.get_horizontal_padding()
@@ -78,7 +78,7 @@ class View:
         calculate position of child by alignment.
         :return: position of child.
         """
-        box = [0, 0,]
+        box = [0, 0, ]
         child_width = self._child.get_width()
         child_height = self._child.get_height()
         # box 구하기
@@ -120,15 +120,37 @@ class View:
         generate image file based on attribute of this object
         :return: an Image.
         """
-        parent = Image.new(mode="RGBA", size=(
-            self._width, self._height), color=self._background.get_RGBA_by_tuple())
+        parent = self._make_background()
         if self._child is not None:
-            child_img = self._child.generate()
+            aligned_child = self._make_aligned_child()
+
+            if aligned_child is None:
+                pass
             child_padding = self._child.get_padding()
-            virtual_view_for_padding = Image.new("RGBA", (self._padding_view_width, self._padding_view_height), color=(0, 0, 0, 0))
-            self._warn_if_child_is_bigger_than_padding_view()
-            virtual_view_for_padding.paste(child_img, self._get_alignment(), child_img)
-            
-            parent.paste(virtual_view_for_padding, box=(child_padding.left, child_padding.top), mask=virtual_view_for_padding)
+            parent.paste(
+                aligned_child,
+                box=(child_padding.left, child_padding.top),
+                mask=aligned_child
+            )
 
         return parent
+
+    def _make_aligned_child(self) -> Image:
+        if self._child is None:
+            return None
+
+        self._warn_if_child_is_bigger_than_padding_view()
+
+        child_img = self._child.generate()
+        child_padding = self._child.get_padding()
+        virtual_view_for_child_alignment = Image.new(
+            "RGBA",
+            (self._padding_view_width, self._padding_view_height),
+            color=(0, 0, 0, 0)
+        )
+        virtual_view_for_child_alignment.paste(child_img, self._get_alignment(), child_img)
+        return virtual_view_for_child_alignment
+
+    def _make_background(self) -> Image:
+        return Image.new(mode="RGBA", size=(
+            self._width, self._height), color=self._background.get_RGBA_by_tuple())
