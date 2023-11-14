@@ -47,3 +47,5 @@ UNDONE
 # TODO textView 만들기
 # TODO: row 만들기
 # TODO column 만들기
+# TestView의 is_section_is_colored 개선하기
+# 모든 width, height는 최대 크기인 것임을 확실히 하는지 테스트하기
