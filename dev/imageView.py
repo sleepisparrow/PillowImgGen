@@ -75,4 +75,4 @@ class ImageView(View):
         if self.imageOption == ImageOption.fill:
             self.__image = self.__image.resize((self._width, self._height))
         elif self.imageOption == ImageOption.crop:
-            self.__image = self.__image.crop(0, 0, self._width, self._height)
+            self.__image = self.__image.crop((0, 0, self._width, self._height))

@@ -49,6 +49,27 @@ class TestIamgeView(TestCase):
         image.show()
         # 이미지를 확장하게 되면, 단순히 커지는게 아닌 blur 처리가 되기 때문에 테스트할 수 없음.
 
+        # width, height가 path보다 작으면, 그냥 알아서 crop되는게 아닐까?
+    def test_image_view_crop_left_top(self):
+        """
+        crop 을 진행한 경우, left_top을 기준으로 잘 crop되는가?
+        :return:
+        """
+        path = "./test_image/center.png"
+        image = ImageView(
+            width=50,
+            height=50,
+            path=path,
+            image_option=ImageOption.crop
+        )
+
+        image = image.generate()
+        size = image.size
+        self.assertEqual(size[0], 50)
+        self.assertEqual(size[1], 50)
+
+        TestView.is_only_box_colored(25, 25, 50, 50, image, Colors.white, Colors.red)
+
     def test_child_showed_normally(self):
         """
         자식이 있는 경우, 자식이 제대로 보여지는가?
@@ -79,5 +100,4 @@ class TestIamgeView(TestCase):
         self.assertTrue(rst)
 
         # TODO: test image view
-        # 자식 뷰가 있는 경우, 그걸 잘 보여주는가?
         # 이미지 뷰 crop옵션 9개는 어떻게 해야 하는가?
