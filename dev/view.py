@@ -142,12 +142,13 @@ class View:
         self._warn_if_child_is_bigger_than_padding_view()
 
         child_img = self._child.generate()
-        child_padding = self._child.get_padding()
+        # 자식을 담을 상자를 만든다.
         virtual_view_for_child_alignment = Image.new(
             "RGBA",
             (self._padding_view_width, self._padding_view_height),
             color=(0, 0, 0, 0)
         )
+        # 자식을 정렬법에 맞추어서 넣는다.
         virtual_view_for_child_alignment.paste(child_img, self._get_alignment(), child_img)
         return virtual_view_for_child_alignment
 

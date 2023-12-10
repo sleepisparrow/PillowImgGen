@@ -46,7 +46,6 @@ class TestIamgeView(TestCase):
         self.assertEqual(size[0], 400)
         self.assertEqual(size[1], 400)
 
-        image.show()
         # 이미지를 확장하게 되면, 단순히 커지는게 아닌 blur 처리가 되기 때문에 테스트할 수 없음.
 
         # width, height가 path보다 작으면, 그냥 알아서 crop되는게 아닐까?
@@ -55,7 +54,7 @@ class TestIamgeView(TestCase):
         crop 을 진행한 경우, left_top을 기준으로 잘 crop되는가?
         :return:
         """
-        path = "./test_image/center.png"
+        path = "test/test_image/center.png"
         image = ImageView(
             width=50,
             height=50,
@@ -78,7 +77,7 @@ class TestIamgeView(TestCase):
         image_view = ImageView(
             width=200,
             height=200,
-            path="test_image/center.png",
+            path="test/test_image/center.png",
             image_option=ImageOption.fill,
             child=View(
                 width=100,

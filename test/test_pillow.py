@@ -15,7 +15,6 @@ class TestPillow(TestCase):
     def test_crop(self):
         original = Image.open('/home/tiredpiru/PycharmProjects/PillowImgGen/test/test_image/center.png')
         sample = original.crop((0, 0, 200, 200))
-        sample.show()
         # 크롭을 원본보다 크게 하면 이미지가 비어버리게 된다.
 
     def test_url(self):

@@ -1,7 +1,9 @@
 from unittest import *
+import unittest
 
 from dev.Color import Colors
 from dev.Column import Column
+from dev.padding import Padding
 from dev.view import View
 from test_view import TestView
 
@@ -41,17 +43,5 @@ class TestColumn(TestCase):
         self.assertTrue(TestView.is_section_colored(0, 150, 100, 250, image, Colors.blue))
         self.assertTrue(TestView.is_section_colored(0, 250, 100, 300, image, Colors.white))
 
-    def test_column_children_padding(self):
-        """
-        column 안의 자식들의 padding이 잘 적용되어 나타나는가?
-        --------------------------------
-        1. red 사각형 (80*80, padding: 모든 방향으로 10씩)
-        2. green 사각형(80*100, padding: vertical 방향으로 10씩)
-        :return:
-        """
-        column = Column(
-            width=200,
-            height=200,
-
-        )
-
+if __name__ == "main":
+    unittest.main()
