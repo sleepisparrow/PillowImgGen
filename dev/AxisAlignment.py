@@ -37,10 +37,26 @@ class End(AxisAlignmentFactory):
         ret.reverse()
         return ret
 
+
+class SpaceAround(AxisAlignmentFactory):
+    @staticmethod
+    def make(background_length: int, children_lengths: list[int]) -> list[int]:
+        empty_length = background_length                   # empty_length = 여유가 되는 거리
+        for i in children_lengths:
+            empty_length -= i
+        margin = empty_length // len(children_lengths)     # margin = 객체 간 거리
+        ret = []
+        tmp = margin//2
+        for i in children_lengths:
+            ret.append(tmp)
+            tmp += i + margin
+        return ret
+
+
 class AxisAlignment(Enum):
     start = Start
     end = End
-    space_around = auto()
+    space_around = SpaceAround
     space_between = auto()
     space_evenly = auto()
 
