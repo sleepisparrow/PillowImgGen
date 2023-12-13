@@ -110,6 +110,64 @@ class TestColumn(TestCase):
         for i in range(len(target_color)):
             self.assertTrue(TestView.is_section_colored(0, target_y[i], 100, target_y[i+1], image, target_color[i]))
 
+    def test_column_MainAxisAlignment_space_evenly(self):
+        column = Column(
+            width=100,
+            height=500,
+            background=Colors.white,
+            main_axis_alignment=AxisAlignment.space_evenly,
+            children=[
+                View(
+                    width=100,
+                    height=100,
+                    background=Colors.red,
+                ),
+                View(
+                    width=100,
+                    height=100,
+                    background=Colors.green,
+                )
+            ],
+        )
+
+        image = column.generate()
+        target_color = [Colors.white, Colors.red, Colors.white, Colors.green, Colors.white]
+        target_y = [0, 100, 200, 300, 400, 500]
+        for i in range(len(target_color)):
+            self.assertTrue(TestView.is_section_colored(0, target_y[i], 100, target_y[i + 1], image, target_color[i]))
+
+    def test_column_MainAxisAlignment_space_between(self):
+        column = Column(
+            width=100,
+            height=500,
+            background=Colors.white,
+            main_axis_alignment=AxisAlignment.space_between,
+            children=[
+                View(
+                    width=100,
+                    height=100,
+                    background=Colors.red,
+                ),
+                View(
+                    width=100,
+                    height=100,
+                    background=Colors.green,
+                ),
+                View(
+                    width=100,
+                    height=100,
+                    background=Colors.blue,
+                )
+            ],
+        )
+
+        image = column.generate()
+        target_color = [Colors.red, Colors.white, Colors.green, Colors.white, Colors.blue]
+        target_y = [0, 100, 200, 300, 400, 500]
+        for i in range(len(target_color)):
+            self.assertTrue(TestView.is_section_colored(0, target_y[i], 100, target_y[i + 1], image, target_color[i]))
+        pass
+
 
 if __name__ == "main":
     unittest.main()
