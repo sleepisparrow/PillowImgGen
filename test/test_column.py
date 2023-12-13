@@ -185,6 +185,5 @@ class TestColumn(TestCase):
         img = view.generate()
 
 
-
 if __name__ == "main":
     unittest.main()
