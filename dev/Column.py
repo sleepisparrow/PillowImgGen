@@ -1,8 +1,10 @@
 from PIL import Image
 
-from dev.Color import Color
-from dev.view import View
 from dev.AxisAlignment import AxisAlignment
+from dev.Color import Color
+from dev.padding import Padding
+from dev.view import View
+
 
 class Column(View):
     def __init__(
@@ -10,10 +12,13 @@ class Column(View):
             width: int,
             height: int,
             background: Color = Color(0, 0, 0, 0),
-            children: list[View] = [],
-            main_axis_alignment = AxisAlignment.start
-        ):
-        super().__init__(width, height, background=background)
+            children: list[View] = None,
+            padding=Padding.all(0),
+            main_axis_alignment=AxisAlignment.start
+    ):
+        super().__init__(width, height, background=background, padding=padding)
+        if children is None:
+            children = []
         self.__children = children
         self.__coordinate: int = 0
         self.__main_axis_alignment = main_axis_alignment

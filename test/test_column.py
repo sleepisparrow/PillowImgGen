@@ -4,6 +4,7 @@ from unittest import *
 from dev.AxisAlignment import AxisAlignment
 from dev.Color import Colors
 from dev.Column import Column
+from dev.padding import Padding
 from dev.view import View
 from test_view import TestView
 
@@ -167,6 +168,22 @@ class TestColumn(TestCase):
         for i in range(len(target_color)):
             self.assertTrue(TestView.is_section_colored(0, target_y[i], 100, target_y[i + 1], image, target_color[i]))
         pass
+
+    def test_column_padding(self):
+        view = View(
+            width=200,
+            height=200,
+            background=Colors.white,
+            child=Column(
+                width=180,
+                height=50,
+                background=Colors.black,
+                padding=Padding.all(10),
+            ),
+        )
+
+        img = view.generate()
+
 
 
 if __name__ == "main":
