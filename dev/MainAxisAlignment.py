@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class AxisAlignmentFactory:
+class MainAxisAlignmentFactory:
     # 배치할 좌표값들을 반환해야 하지, 이미지 그 자체를 반환하는 식으로 짜면, 코드가 굉장히 복잡해진다.
     # 배경의 길이랑, 자식의 길이들을 받아서, 각 child의 좌표 리스트를 반환하도록 짜자.
     @staticmethod
@@ -9,7 +9,7 @@ class AxisAlignmentFactory:
         raise NotImplementedError("package error occured. please report")
 
 
-class Start(AxisAlignmentFactory):
+class Start(MainAxisAlignmentFactory):
     @staticmethod
     def make(background_length: int, children_lengths: list[int]) -> list[int]:
         ret = []
@@ -20,7 +20,7 @@ class Start(AxisAlignmentFactory):
         return ret
 
 
-class End(AxisAlignmentFactory):
+class End(MainAxisAlignmentFactory):
     @staticmethod
     def make(background_length: int, children_lengths: list[int]) -> list[int]:
         # 뒤에서부터 올려가면서 계산하고, 마지막에 reverse
@@ -50,7 +50,7 @@ def _make_space_array(start: int, margin: int, children_lengths: list[int]) -> l
     return ret
 
 
-class SpaceAround(AxisAlignmentFactory):
+class SpaceAround(MainAxisAlignmentFactory):
     @staticmethod
     def make(background_length: int, children_lengths: list[int]) -> list[int]:
         empty_length = background_length  # empty_length = 여유가 되는 거리
@@ -61,7 +61,7 @@ class SpaceAround(AxisAlignmentFactory):
         return _make_space_array(margin//2, margin, children_lengths)
 
 
-class SpaceEvenly(AxisAlignmentFactory):
+class SpaceEvenly(MainAxisAlignmentFactory):
     @staticmethod
     def make(background_length: int, children_lengths: list[int]) -> list[int]:
         empty_length = background_length  # empty_length = 여유가 되는 거리
@@ -72,7 +72,7 @@ class SpaceEvenly(AxisAlignmentFactory):
         return _make_space_array(margin, margin, children_lengths)
 
 
-class SpaceBetween(AxisAlignmentFactory):
+class SpaceBetween(MainAxisAlignmentFactory):
     @staticmethod
     def make(background_length: int, children_lengths: list[int]) -> list[int]:
         empty_length = background_length  # empty_length = 여유가 되는 거리
@@ -83,7 +83,7 @@ class SpaceBetween(AxisAlignmentFactory):
         return _make_space_array(0, margin, children_lengths)
 
 
-class AxisAlignment(Enum):
+class MainAxisAlignment(Enum):
     start = Start
     end = End
     space_around = SpaceAround

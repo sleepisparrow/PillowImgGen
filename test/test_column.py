@@ -1,9 +1,10 @@
 import unittest
 from unittest import *
 
-from dev.AxisAlignment import AxisAlignment
 from dev.Color import Colors
 from dev.Column import Column
+from dev.CrossAxisAlignment import CrossAxisAlignment
+from dev.MainAxisAlignment import MainAxisAlignment
 from dev.padding import Padding
 from dev.view import View
 from test_view import TestView
@@ -44,9 +45,9 @@ class TestColumn(TestCase):
         self.assertTrue(TestView.is_section_colored(0, 150, 100, 250, image, Colors.blue))
         self.assertTrue(TestView.is_section_colored(0, 250, 100, 300, image, Colors.white))
 
-    def test_column_MainAxisAlignment_end(self):
+    def test_column_MainMainAxisAlignment_end(self):
         """
-        MainAxisAlignment_end를 할 경우, 제일 밑에서 위로 올라가며 생성되는가?
+        MainMainAxisAlignment_end를 할 경우, 제일 밑에서 위로 올라가며 생성되는가?
         """
         column = Column(
             width=100,
@@ -64,7 +65,7 @@ class TestColumn(TestCase):
                     background=Colors.blue,
                 ),
             ],
-            main_axis_alignment=AxisAlignment.end,
+            main_axis_alignment=MainAxisAlignment.end,
         )
 
         image = column.generate()
@@ -75,9 +76,9 @@ class TestColumn(TestCase):
         # 마지막 100픽셀이 blue?
         self.assertTrue(TestView.is_section_colored(200, 0, 100, 300, image, Colors.blue))
 
-    def test_column_MainAxisAlignment_space_around(self):
+    def test_column_MainMainAxisAlignment_space_around(self):
         """
-        mainAxisAlignment을 space around로 하게 되면,
+        mainMainAxisAlignment을 space around로 하게 되면,
         객체간은 같은 거리, 객체와 벽 사이는 절반의 거리를 가지게 되는가?
         :return:
         """
@@ -102,21 +103,21 @@ class TestColumn(TestCase):
                     background=Colors.blue,
                 )
             ],
-            main_axis_alignment=AxisAlignment.space_around
+            main_axis_alignment=MainAxisAlignment.space_around
         )
 
         image = column.generate()
         target_color = [Colors.white, Colors.red, Colors.white, Colors.green, Colors.white, Colors.blue, Colors.white]
         target_y = [0, 50, 150, 250, 350, 450, 550, 600]
         for i in range(len(target_color)):
-            self.assertTrue(TestView.is_section_colored(0, target_y[i], 100, target_y[i+1], image, target_color[i]))
+            self.assertTrue(TestView.is_section_colored(0, target_y[i], 100, target_y[i + 1], image, target_color[i]))
 
-    def test_column_MainAxisAlignment_space_evenly(self):
+    def test_column_MainMainAxisAlignment_space_evenly(self):
         column = Column(
             width=100,
             height=500,
             background=Colors.white,
-            main_axis_alignment=AxisAlignment.space_evenly,
+            main_axis_alignment=MainAxisAlignment.space_evenly,
             children=[
                 View(
                     width=100,
@@ -137,12 +138,12 @@ class TestColumn(TestCase):
         for i in range(len(target_color)):
             self.assertTrue(TestView.is_section_colored(0, target_y[i], 100, target_y[i + 1], image, target_color[i]))
 
-    def test_column_MainAxisAlignment_space_between(self):
+    def test_column_MainMainAxisAlignment_space_between(self):
         column = Column(
             width=100,
             height=500,
             background=Colors.white,
-            main_axis_alignment=AxisAlignment.space_between,
+            main_axis_alignment=MainAxisAlignment.space_between,
             children=[
                 View(
                     width=100,
@@ -183,6 +184,59 @@ class TestColumn(TestCase):
         )
 
         img = view.generate()
+
+    def test_column_crossAxisAlignment_start(self):
+        column = Column(
+            width=200,
+            height=300,
+            background=Colors.white,
+            cross_axis_alignment=CrossAxisAlignment.start,
+            children=[
+                View(
+                    width=100,
+                    height=100,
+                    background=Colors.black
+                ),
+            ],
+        )
+
+        image = column.generate()
+        self.assertTrue(TestView.is_only_box_colored(0, 0, 100, 100, image, Colors.white, Colors.black))
+
+    def test_column_crossAxisAlignment_center(self):
+        column = Column(
+            width=200,
+            height=200,
+            background=Colors.white,
+            children=[
+                View(
+                    width=100,
+                    height=100,
+                    background=Colors.black
+                )
+            ]
+        )
+        image = column.generate()
+
+        self.assertTrue(TestView.is_only_box_colored(50, 0, 150, 100, image, Colors.white, Colors.black))
+
+    def test_column_crossAxisAlignment_end(self):
+        column = Column(
+            width=200,
+            height=200,
+            background=Colors.white,
+            cross_axis_alignment=CrossAxisAlignment.end,
+            children=[
+                View(
+                    width=100,
+                    height=100,
+                    background=Colors.black,
+                )
+            ]
+        )
+        image = column.generate()
+
+        self.assertTrue(TestView.is_only_box_colored(100, 0, 200, 100, image, Colors.white, Colors.black))
 
 
 if __name__ == "main":
